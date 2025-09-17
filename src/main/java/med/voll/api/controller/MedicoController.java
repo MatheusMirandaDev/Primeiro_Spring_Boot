@@ -2,10 +2,7 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.medico.DadosCadastroMedicoDTO;
-import med.voll.api.medico.DadosListagemMedicosDTO;
-import med.voll.api.medico.Medico;
-import med.voll.api.medico.MedicoRepository;
+import med.voll.api.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +18,20 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public void cadastar(@RequestBody @Valid DadosCadastroMedicoDTO dados){
+    public void cadastar(@RequestBody @Valid DadosCadastroMedicoDTO dados) {
         repository.save(new Medico(dados));
 
     }
 
     @GetMapping
-    public Page<DadosListagemMedicosDTO> listar(@PageableDefault(size = 10, sort = {"nome"} ) Pageable paginacao){
+    public Page<DadosListagemMedicosDTO> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemMedicosDTO::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedicoDTO dados) {
+        var medico = repository.getReferenceById(dados.id());
+        medico.atualizarInformacoes(dados);
     }
 }
