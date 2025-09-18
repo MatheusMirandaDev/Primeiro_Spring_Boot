@@ -1,4 +1,7 @@
 package med.voll.api.paciente;
 
-public class DadosListagemPacienteDTO {
+public record DadosListagemPacienteDTO (Long Id, String nome, String email, String cpf) {
+    public DadosListagemPacienteDTO (Paciente paciente){
+        this(paciente.getId(), paciente.getNome(), paciente.getEmail(), paciente.getCpf());
+    }
 }
