@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-public class TockenService {
+public class TokenService {
 
     public String gerarToken(User user){
         try {
