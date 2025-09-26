@@ -1,4 +1,4 @@
 package med.voll.api.infra.security;
 
-public record DadosToknJwtDTO(String token) {
+public record DadosTokenJwtDTO(String token) {
 }
